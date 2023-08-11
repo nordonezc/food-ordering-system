@@ -10,11 +10,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>order-domain-core</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.co.nordonez</groupId>
+            <artifactId>order-common-domain</artifactId>
+        </dependency>
+    </dependencies>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.co.nordonez</groupId>
+                <artifactId>order-common-domain</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
