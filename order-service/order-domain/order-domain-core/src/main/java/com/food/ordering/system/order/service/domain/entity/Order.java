@@ -17,6 +17,15 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.UUID;
 
+import static com.food.ordering.system.order.service.domain.utils.MessageConstants.ITEM_PRICE_NOT_VALID_FOR_PRODUCTS;
+import static com.food.ordering.system.order.service.domain.utils.MessageConstants.ORDER_INCORRECT_FOR_APPROVE;
+import static com.food.ordering.system.order.service.domain.utils.MessageConstants.ORDER_INCORRECT_FOR_CANCEL;
+import static com.food.ordering.system.order.service.domain.utils.MessageConstants.ORDER_INCORRECT_FOR_INIT_CANCEL;
+import static com.food.ordering.system.order.service.domain.utils.MessageConstants.ORDER_INCORRECT_FOR_PAY;
+import static com.food.ordering.system.order.service.domain.utils.MessageConstants.ORDER_INCORRECT_STATE_FOR_INIT;
+import static com.food.ordering.system.order.service.domain.utils.MessageConstants.TOTAL_PRICE_MUST_BE_GREATER_THAN_ZERO;
+import static com.food.ordering.system.order.service.domain.utils.MessageConstants.TOTAL_PRICE_NOT_EQUAL_TO_ITEMS_PRICE;
+
 @RequiredArgsConstructor
 @Getter
 @EqualsAndHashCode
@@ -47,7 +56,7 @@ public class Order extends AggregateRoot<OrderId> {
     public void pay() {
         if (orderStatus != OrderStatus.PENDING) {
             throw new OrderDomainException(
-                    String.format("Order is not in correct state for pay operation: %s", orderStatus));
+                    String.format(ORDER_INCORRECT_FOR_PAY, orderStatus));
         }
         orderStatus = OrderStatus.PAID;
     }
@@ -55,7 +64,7 @@ public class Order extends AggregateRoot<OrderId> {
     public void approve() {
         if (orderStatus != OrderStatus.PAID) {
             throw new OrderDomainException(
-                    String.format("Order is not in correct state for approve operation: %s", orderStatus));
+                    String.format(ORDER_INCORRECT_FOR_APPROVE, orderStatus));
         }
         orderStatus = OrderStatus.APPROVED;
     }
@@ -63,18 +72,19 @@ public class Order extends AggregateRoot<OrderId> {
     public void initCancel(List<String> failureMessages) {
         if (orderStatus != OrderStatus.PAID) {
             throw new OrderDomainException(
-                    String.format("Order is not in correct state for initCancel operation: %s", orderStatus));
+                    String.format(ORDER_INCORRECT_FOR_INIT_CANCEL, orderStatus));
         }
         orderStatus = OrderStatus.CANCELLING;
         updateFailureMessage(failureMessages);
     }
 
-    public void cancel() {
+    public void cancel(List<String> failureMessages) {
         if (orderStatus != OrderStatus.PENDING || orderStatus != OrderStatus.CANCELLING) {
             throw new OrderDomainException(
-                    String.format("Order is not in correct state for cancel operation: %s", orderStatus.name()));
+                    String.format(ORDER_INCORRECT_FOR_CANCEL, orderStatus.name()));
         }
         orderStatus = OrderStatus.CANCELLED;
+        updateFailureMessage(failureMessages);
     }
 
     public void updateFailureMessage(List<String> failureMessages) {
@@ -94,7 +104,7 @@ public class Order extends AggregateRoot<OrderId> {
 
         if (!price.equals(orderItemsTotal)) {
             throw new OrderDomainException(
-                    String.format("Total price: %s is not equal to Order items total: %s!",
+                    String.format(TOTAL_PRICE_NOT_EQUAL_TO_ITEMS_PRICE,
                             price.getAmount(),
                             orderItemsTotal.getAmount()));
         }
@@ -103,7 +113,7 @@ public class Order extends AggregateRoot<OrderId> {
     private void validateItemPrice(OrderItem orderItem) {
         if (!orderItem.isPriceValid()) {
             throw new OrderDomainException(
-                    String.format("Order item price: %s is not valid for product %s",
+                    String.format(ITEM_PRICE_NOT_VALID_FOR_PRODUCTS,
                             orderItem.getPrice().getAmount(),
                             orderItem.getProduct().getId().getValue()));
         }
@@ -112,13 +122,13 @@ public class Order extends AggregateRoot<OrderId> {
 
     private void validateTotalPrice() {
         if (price == null || price.isGreaterThanZero()) {
-            throw new OrderDomainException("Total price must be greater than zero");
+            throw new OrderDomainException(TOTAL_PRICE_MUST_BE_GREATER_THAN_ZERO);
         }
     }
 
     private void validateInitialOrder() {
         if (orderStatus != null || getId() != null) {
-            throw new OrderDomainException("Order is not in correct state for initialization!");
+            throw new OrderDomainException(ORDER_INCORRECT_STATE_FOR_INIT);
         }
     }
 
