@@ -10,14 +10,16 @@ import com.food.ordering.system.order.service.domain.exception.OrderDomainExcept
 import com.food.ordering.system.order.service.domain.valueobject.OrderItemId;
 import com.food.ordering.system.order.service.domain.valueobject.StreetAddress;
 import com.food.ordering.system.order.service.domain.valueobject.TrackingId;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
 
-@SuperBuilder
+@RequiredArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class Order extends AggregateRoot<OrderId> {
     private final CustomerId customerId;
     private final RestaurantId restaurantId;
@@ -45,7 +47,7 @@ public class Order extends AggregateRoot<OrderId> {
     public void pay() {
         if (orderStatus != OrderStatus.PENDING) {
             throw new OrderDomainException(
-                    String.format("Order is not in correct state for pay operation: %d", orderStatus));
+                    String.format("Order is not in correct state for pay operation: %s", orderStatus));
         }
         orderStatus = OrderStatus.PAID;
     }
@@ -53,17 +55,18 @@ public class Order extends AggregateRoot<OrderId> {
     public void approve() {
         if (orderStatus != OrderStatus.PAID) {
             throw new OrderDomainException(
-                    String.format("Order is not in correct state for approve operation: %d", orderStatus));
+                    String.format("Order is not in correct state for approve operation: %s", orderStatus));
         }
         orderStatus = OrderStatus.APPROVED;
     }
 
-    public void initCancel() {
+    public void initCancel(List<String> failureMessages) {
         if (orderStatus != OrderStatus.PAID) {
             throw new OrderDomainException(
-                    String.format("Order is not in correct state for initCancel operation: %d", orderStatus));
+                    String.format("Order is not in correct state for initCancel operation: %s", orderStatus));
         }
         orderStatus = OrderStatus.CANCELLING;
+        updateFailureMessage(failureMessages);
     }
 
     public void cancel() {
@@ -78,7 +81,7 @@ public class Order extends AggregateRoot<OrderId> {
         if (this.failureMessages != null && failureMessages != null) {
             this.failureMessages.addAll(failureMessages.stream().filter(m -> !m.isEmpty()).toList());
         }
-        if(this.failureMessages == null){
+        if (this.failureMessages == null) {
             this.failureMessages = failureMessages;
         }
     }
