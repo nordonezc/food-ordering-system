@@ -1,6 +1,7 @@
 package com.food.ordering.system.order.service.domain.valueobject;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Objects;
@@ -8,6 +9,7 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
+@Builder
 public class StreetAddress {
 
     private final UUID id;

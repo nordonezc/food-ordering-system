@@ -36,14 +36,19 @@ public class OrderItem extends BaseEntity<OrderItemId> {
 
 
     public static final class Builder {
-        private final OrderItemId orderItemId;
+        private OrderItemId orderItemId;
         private Product product;
         private int quantity;
         private Money price;
         private Money subTotal;
 
-        public Builder(OrderItemId orderItemId) {
+        public Builder() {
+            // Empty builder allowed
+        }
+
+        public Builder orderItemId(OrderItemId orderItemId) {
             this.orderItemId = orderItemId;
+            return this;
         }
 
         public Builder product(Product product) {

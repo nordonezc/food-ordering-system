@@ -10,6 +10,8 @@ import com.food.ordering.system.order.service.domain.exception.OrderDomainExcept
 import com.food.ordering.system.order.service.domain.valueobject.OrderItemId;
 import com.food.ordering.system.order.service.domain.valueobject.StreetAddress;
 import com.food.ordering.system.order.service.domain.valueobject.TrackingId;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +28,11 @@ import static com.food.ordering.system.order.service.domain.utils.MessageConstan
 import static com.food.ordering.system.order.service.domain.utils.MessageConstants.TOTAL_PRICE_MUST_BE_GREATER_THAN_ZERO;
 import static com.food.ordering.system.order.service.domain.utils.MessageConstants.TOTAL_PRICE_NOT_EQUAL_TO_ITEMS_PRICE;
 
-@RequiredArgsConstructor
 @Getter
+@Builder
 @EqualsAndHashCode
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Order extends AggregateRoot<OrderId> {
     private final CustomerId customerId;
     private final RestaurantId restaurantId;
