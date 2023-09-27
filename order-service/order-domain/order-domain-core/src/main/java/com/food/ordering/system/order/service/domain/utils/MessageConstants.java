@@ -16,6 +16,7 @@ public class MessageConstants {
     public static final String ORDER_APPROVED = "Order with id: %s is approved";
     public static final String ORDER_CANCEL_INITIATED = "Order with id: %s is requested to cancel";
     public static final String ORDER_CANCELED = "Order with id: %s is canceled";
+    public static final String ORDER_PUBLISHED = "Order with id: %s is published";
 
     public static final String RESTAURANT_IS_NOT_ACTIVE = "Restaurant with id %s is not active";
 

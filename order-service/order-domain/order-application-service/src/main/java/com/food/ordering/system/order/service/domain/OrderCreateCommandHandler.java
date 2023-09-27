@@ -34,13 +34,15 @@ public class OrderCreateCommandHandler {
     private final RestaurantRepository restaurantRepository;
     private final OrderDataMapper orderDataMapper;
 
+    private final ApplicationDomainEventPublisher domainEventPublisher;
+
     @Transactional
     public CreateOrderResponse createOrder(CreateOrderCommand createOrderCommand) {
         checkCustomer(createOrderCommand.getCustomerId());
         var restaurant = checkRestaurant(createOrderCommand);
         var order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
-        // TODO fire the event
         var orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant);
+        domainEventPublisher.publish(orderCreatedEvent);
         var orderSaved = saveOrder(order);
         return orderDataMapper.orderToCreateOrderResponse(orderSaved);
     }
