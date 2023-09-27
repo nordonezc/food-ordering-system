@@ -7,6 +7,7 @@ public class MessageConstants {
     // LOGGER ORDER SERVICE MESSAGES
     public static final String CUSTOMER_NOT_FOUND = "Could not find customer with id: %s";
     public static final String RESTAURANT_NOT_FOUND = "Could not find restaurant with id: %s";
+    public static final String TRACKING_ORDER_NOT_FOUND = "Could not find tracking order with id: %s";
 
     // LOGGER SERVICE IMPLEMENTATION MESSAGES
     public static final String ORDER_INITIATED = "Order with id: %s is initiated";
