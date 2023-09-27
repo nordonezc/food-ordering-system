@@ -13,12 +13,12 @@ public class MessageConstants {
     public static final String ORDER_INITIATED = "Order with id: %s is initiated";
     public static final String ORDER_SAVED = "Order with id: %s is saved";
     public static final String ORDER_CREATED = "Order with id: %s is created";
+    public static final String ORDER_CREATED_SUCCESSFULLY = "Order created successfully";
     public static final String ERROR_SAVING_ORDER = "Could not save the order";
     public static final String ORDER_PAID = "Order with id: %s is paid";
     public static final String ORDER_APPROVED = "Order with id: %s is approved";
     public static final String ORDER_CANCEL_INITIATED = "Order with id: %s is requested to cancel";
     public static final String ORDER_CANCELED = "Order with id: %s is canceled";
-
     public static final String RESTAURANT_IS_NOT_ACTIVE = "Restaurant with id %s is not active";
 
     // ORDER DOMAIN EXCEPTION

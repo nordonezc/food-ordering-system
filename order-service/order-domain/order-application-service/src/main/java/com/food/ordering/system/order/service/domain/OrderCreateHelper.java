@@ -42,7 +42,7 @@ public class OrderCreateHelper {
         var order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
         var orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant);
         var orderSaved = saveOrder(order);
-        log.info(String.format(ORDER_CREATED, orderSaved.getId()));
+        log.info(String.format(ORDER_CREATED, orderSaved.getId().getValue()));
         return orderCreatedEvent;
     }
 
@@ -73,7 +73,7 @@ public class OrderCreateHelper {
             log.warn(ERROR_SAVING_ORDER);
             throw new OrderDomainException(ERROR_SAVING_ORDER);
         }
-        log.info(String.format(ORDER_SAVED, orderStored.getId()));
+        log.info(String.format(ORDER_SAVED, orderStored.getId().getValue()));
         return orderStored;
     }
 

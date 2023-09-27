@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import static com.food.ordering.system.order.service.domain.utils.MessageConstants.ORDER_CREATED_SUCCESSFULLY;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class OrderCreateCommandHandler {
     public CreateOrderResponse createOrder(CreateOrderCommand createOrderCommand) {
         var createdOrder = orderCreateHelper.persistOrder(createOrderCommand);
         requestMessagePublisher.publish(createdOrder);
-        return orderDataMapper.orderToCreateOrderResponse(createdOrder.getOrder());
+        return orderDataMapper.orderToCreateOrderResponse(createdOrder.getOrder(), ORDER_CREATED_SUCCESSFULLY);
     }
 
 }

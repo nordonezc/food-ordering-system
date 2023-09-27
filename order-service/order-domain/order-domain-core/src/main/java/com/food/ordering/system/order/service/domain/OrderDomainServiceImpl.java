@@ -63,14 +63,11 @@ public class OrderDomainServiceImpl implements OrderDomainService {
 
     /**
      * TODO HashMaps for products to improve performance
-     *
-     * @param order
-     * @param restaurant
      */
     private void setOrderProductInformation(Order order, Restaurant restaurant) {
         order.getItems().forEach(orderItem -> restaurant.getProducts().forEach(restaurantProduct -> {
             var orderProduct = orderItem.getProduct();
-            if (orderProduct.equals(restaurantProduct)) {
+            if (orderProduct.getId().equals(restaurantProduct.getId())) {
                 orderProduct.updateWithConfirmedNameAndPrice(
                         restaurantProduct.getName(),
                         restaurantProduct.getPrice());
