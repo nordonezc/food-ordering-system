@@ -8,6 +8,7 @@ target/
 *.ipr
 *.iws
 .idea
+.idea/**
 out
 test-output
 atlassian-ide-plugin.xml
