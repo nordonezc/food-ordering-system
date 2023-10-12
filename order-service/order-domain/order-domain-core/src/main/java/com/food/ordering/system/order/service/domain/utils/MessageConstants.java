@@ -35,6 +35,10 @@ public class MessageConstants {
 
     public static final String ORDER_INCORRECT_STATE_FOR_INIT = "Order is not in correct state for initialization!";
 
+    // Kafka constant messages
+    public static final String ERROR_PRODUCER_MESSAGE = "Error on kafka producer with key: %s, message: %s and exception: %s";
+    public static final String SENDING_MESSAGE_TO_TOPIC = "Sending message: %s. to topic: %s";
+    public static final String CLOSING_KAFKA_PRODUCER = "Closing kafka producer";
     private MessageConstants() {
     }
 }

@@ -28,6 +28,10 @@
         <java.version>17</java.version>
         <lombok.version>1.18.26</lombok.version>
         <mockito-core.version>5.4.0</mockito-core.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
+        <spring-kafka.version>2.9.10</spring-kafka.version>
+        <kafka-avro-serializer.version>0.1.0</kafka-avro-serializer.version>
+        <avro.version>1.11.2</avro.version>
     </properties>
 
     <dependencies>
@@ -44,6 +48,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.co.nordonez</groupId>
                 <artifactId>order-domain-core</artifactId>
@@ -77,6 +86,26 @@
             <dependency>
                 <groupId>com.co.nordonez</groupId>
                 <artifactId>order-common-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.co.nordonez</groupId>
+                <artifactId>kafka-producer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.co.nordonez</groupId>
+                <artifactId>kafka-consumer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.co.nordonez</groupId>
+                <artifactId>kafka-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.co.nordonez</groupId>
+                <artifactId>kafka-config-data</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
