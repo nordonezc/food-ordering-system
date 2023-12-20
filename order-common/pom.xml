@@ -14,5 +14,6 @@
 
     <modules>
         <module>order-common-domain</module>
+        <module>order-common-application</module>
     </modules>
 </project>
