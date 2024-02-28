@@ -10,11 +10,9 @@ import com.food.ordering.system.order.service.domain.exception.OrderDomainExcept
 import com.food.ordering.system.order.service.domain.valueobject.OrderItemId;
 import com.food.ordering.system.order.service.domain.valueobject.StreetAddress;
 import com.food.ordering.system.order.service.domain.valueobject.TrackingId;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,10 +27,8 @@ import static com.food.ordering.system.order.service.domain.utils.MessageConstan
 import static com.food.ordering.system.order.service.domain.utils.MessageConstants.TOTAL_PRICE_NOT_EQUAL_TO_ITEMS_PRICE;
 
 @Getter
-@Builder
-@EqualsAndHashCode
-@RequiredArgsConstructor
-@AllArgsConstructor
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
 public class Order extends AggregateRoot<OrderId> {
     private final CustomerId customerId;
     private final RestaurantId restaurantId;

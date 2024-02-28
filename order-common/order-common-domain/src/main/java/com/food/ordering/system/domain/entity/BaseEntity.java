@@ -1,12 +1,12 @@
 package com.food.ordering.system.domain.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
+@SuperBuilder
+@NoArgsConstructor
 public abstract class BaseEntity<ID> {
     private ID id;
 }

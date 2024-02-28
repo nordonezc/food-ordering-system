@@ -4,11 +4,18 @@ import com.food.ordering.system.domain.entity.BaseEntity;
 import com.food.ordering.system.domain.valueobject.Money;
 import com.food.ordering.system.domain.valueobject.OrderId;
 import com.food.ordering.system.order.service.domain.valueobject.OrderItemId;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
 public class OrderItem extends BaseEntity<OrderItemId> {
 
+    @EqualsAndHashCode.Exclude
     private OrderId orderId;
     private final Product product;
     private final int quantity;
